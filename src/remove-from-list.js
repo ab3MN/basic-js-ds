@@ -22,6 +22,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  *   }
  * }
  */
+
 function removeKFromList(listNode, value) {
   if (!listNode) {
     return;
@@ -30,13 +31,12 @@ function removeKFromList(listNode, value) {
     listNode = listNode.next;
   }
   let current = listNode;
-  let prev = null;
 
   while (current.next) {
-    prev = current;
-    current = current.next;
-    if (current.value === value) {
-      prev.next = current.next;
+    if (current.next.value === value) {
+      current.next = current.next.next;
+    } else {
+      current = current.next;
     }
   }
   return listNode;
