@@ -52,18 +52,14 @@ class BinarySearchTree {
       : this.find(data, node.left);
   }
 
-  remove(data) {
-    this._root = this.removeNode(this._root, data);
-  }
-
-  removeNode(node, data) {
+  remove(data, node = this._root) {
     if (!node) return null;
 
     if (data < node.data) {
-      node.left = this.removeNode(node.left, data);
+      node.left = this.remove(data, node.left);
       return node;
     } else if (node.data < data) {
-      node.right = this.removeNode(node.right, data);
+      node.right = this.remove(data, node.right);
       return node;
     } else {
       if (!node.right && !node.left) return null;
@@ -83,11 +79,12 @@ class BinarySearchTree {
       }
       node.data = minFromLeft.data;
 
-      node.left = this.removeNode(node.left, minFromLeft.data);
+      node.left = this.remove(minFromLeft.data, node.left);
 
       return node;
     }
   }
+
   min() {
     let current = this._root;
     while (current.left) {
